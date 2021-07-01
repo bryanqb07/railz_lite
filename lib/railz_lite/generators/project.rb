@@ -10,23 +10,23 @@ module RailzLite
       end
       
       def add_controllers
-        empty_directory("/controllers")
+        empty_directory("controllers")
       end
 
       def add_models
-        empty_directory("/models")
+        empty_directory("models")
       end
 
       def add_server
-        template("server.rb", "/config/server.rb")
+        template("server.rb", "config/server.rb")
       end
 
       def add_views
-        empty_directory("/views")
+        empty_directory("views")
       end
 
       def add_public
-        empty_directory("/public")
+        empty_directory("public")
       end
     end
   end
