@@ -3,7 +3,6 @@ require 'thor/group'
 module RailzLite
   module Generators
     class Project < Thor::Group
-      argument :project_name, :type => :string
       include Thor::Actions
       
       def self.source_root
