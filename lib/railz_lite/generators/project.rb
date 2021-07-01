@@ -10,11 +10,11 @@ module RailzLite
       end
       
       def add_controllers
-        template("application_controller.rb", "/controllers/application_controller.rb")
+        empty_directory("/controllers")
       end
 
       def add_models
-        template("application_model.rb", "/models/application_model.rb")
+        empty_directory("/models")
       end
 
       def add_server
