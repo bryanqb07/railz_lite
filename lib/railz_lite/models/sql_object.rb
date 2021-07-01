@@ -1,6 +1,5 @@
 require_relative 'db_connection'
 require 'active_support/inflector'
-require 'byebug'
 
 module RailzLite
   class SQLObject

@@ -1,4 +1,5 @@
-require 'byebug'
+require 'rack'
+
 class Static
   attr_reader :app, :file_server, :root
 
