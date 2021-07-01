@@ -33,6 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport"
   spec.add_dependency "puma"
   spec.add_dependency "sqlite3"
+  spec.add_dependency "thor"
+
 
   spec.add_development_dependency "byebug"
   spec.add_development_dependency 'rspec', '~> 3.1.0'

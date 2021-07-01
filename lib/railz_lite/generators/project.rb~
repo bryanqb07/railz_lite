@@ -1,0 +1,33 @@
+require 'thor/group'
+
+module RailzLite
+  module Generators
+    class Project < Thor::Group
+      argument :project_name, :type => :string
+      include Thor::Actions
+      
+      def self.source_root
+        File.dirname(__FILE__) + "/templates"
+      end
+      
+      def create_project
+        empty_directory(project_name)
+      end
+      
+      def add_controllers
+        template("application_controller.rb", "#{project_name}/application_controller.rb")
+      end
+      def add_controllers
+        template("application_model.rb", "#{project_name}/application_model.rb")
+      end
+
+      def add_views
+        empty_directory("#{project_name}/views")
+      end
+
+      def add_public
+        empty_directory("#{project_name}/public")
+      end
+    end
+  end
+end
