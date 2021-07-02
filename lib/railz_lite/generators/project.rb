@@ -24,7 +24,7 @@ module RailzLite
       end
 
       def add_server
-        template("#{project_name}/server.rb", "config/server.rb")
+        template('server.rb', "#{project_name}/config/server.rb")
       end
 
       def add_views
