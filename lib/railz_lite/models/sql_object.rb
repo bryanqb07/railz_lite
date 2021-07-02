@@ -1,8 +1,13 @@
 require_relative 'db_connection'
+require_relative 'associatable'
+require_relative 'searchable'
 require 'active_support/inflector'
 
 module RailzLite
   class SQLObject
+    extend RailzLite::Associatable
+    extend RailzLite::Searchable
+
     def self.columns
       @columns ||= DBConnection.execute2(<<-SQL)
       SELECT

@@ -46,34 +46,32 @@ class HasManyOptions < AssocOptions
   end
 end
 
-module Associatable
-  def belongs_to(name, options = {})
-    options = BelongsToOptions.new(name, options)
-    assoc_options[name] = options
-    define_method(name) do
-     foreign_key = send(options.foreign_key)
-     primary_key = options.primary_key
-     params = [[primary_key, foreign_key]].to_h
-     options.model_class.where(params).first
+module RailzLite
+  module Associatable
+    def belongs_to(name, options = {})
+      options = BelongsToOptions.new(name, options)
+      assoc_options[name] = options
+      define_method(name) do
+        foreign_key = send(options.foreign_key)
+        primary_key = options.primary_key
+        params = [[primary_key, foreign_key]].to_h
+        options.model_class.where(params).first
+      end
+    end
+
+    def has_many(name, options = {})
+      options = HasManyOptions.new(name, self.name, options)
+      define_method(name) do
+        foreign_key = options.foreign_key
+        primary_key = send(options.primary_key)
+        params = [[foreign_key, primary_key]].to_h
+        options.model_class.where(params)
+      end
+    end
+
+    def assoc_options
+      @assoc_options ||= {}
+      @assoc_options
     end
   end
-
-  def has_many(name, options = {})
-    options = HasManyOptions.new(name, self.name, options)
-    define_method(name) do
-     foreign_key = options.foreign_key
-     primary_key = send(options.primary_key)
-     params = [[foreign_key, primary_key]].to_h
-     options.model_class.where(params)
-    end
-  end
-
-  def assoc_options
-    @assoc_options ||= {}
-    @assoc_options
-  end
-end
-
-class SQLObject
-  extend Associatable
 end

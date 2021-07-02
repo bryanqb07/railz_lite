@@ -1,10 +1,10 @@
 require_relative 'db_connection'
-require_relative 'sql_object'
 
-module Searchable
-  def where(params)
-    where_line = params.keys.map { |attr_name| "#{attr_name} = ?" }.join(" AND ")
-    results = DBConnection.execute(<<-SQL, *params.values)
+module RailzLite
+  module Searchable
+    def where(params)
+      where_line = params.keys.map { |attr_name| "#{attr_name} = ?" }.join(" AND ")
+      results = DBConnection.execute(<<-SQL, *params.values)
       SELECT
         *
       FROM
@@ -12,10 +12,7 @@ module Searchable
       WHERE
         #{where_line}
     SQL
-    results.map { |attrs| self.new(attrs) }
+      results.map { |attrs| self.new(attrs) }
+    end
   end
-end
-
-class SQLObject
-  extend Searchable
 end
