@@ -16,7 +16,7 @@ app = Proc.new do |env|
 end
 
 app = Rack::Builder.new do
-  use Show_Exceptions # generates helpful error messages
+  use ShowExceptions # generates helpful error messages
   use Static # serves static assets from /public
   run app
 end.to_app
