@@ -8,6 +8,11 @@ module RailzLite
       def self.source_root
         File.dirname(__FILE__) + "/templates"
       end
+
+      def self.destination_root
+        puts "destination for folder #{Dir.pwd}"
+        Dir.pwd
+      end
       
       def add_controllers
         empty_directory("controllers")
