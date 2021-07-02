@@ -4,7 +4,7 @@ class Flash
   attr_reader :now
   def initialize(req)
     cookie = req.cookies['_rails_lite_app_flash']
-    @now = cookie.present? ? JSON.parse(cookie) : {}
+    @now = !cookie.nil? ? JSON.parse(cookie) : {}
     @flash = {}
   end
 
