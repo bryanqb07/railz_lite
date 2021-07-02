@@ -46,7 +46,7 @@ module RailzLite
     # pass the rendered html to render_content
     def render(template_name)
       dir_path = Dir.pwd
-      file_path = File.join(dir_path, 'views', "#{self.class.name.underscore}", "#{template_name.to_s}.html.erb")
+      file_path = File.join(dir_path, 'views', "#{self.class.name.underscore.split('_controller').first}", "#{template_name.to_s}.html.erb")
       file = File.read(file_path)
       template = ERB.new(file).result(binding)
       render_content(template, 'text/html')

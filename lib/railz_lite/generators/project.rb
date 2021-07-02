@@ -27,11 +27,11 @@ module RailzLite
       end
 
       def add_welcome_view
-        template('welcome_view.index.html.erb', "#{project_name}/views/welcome_controller/welcome_view.index.html.erb")
+        template('welcome_view.index.html.erb', "#{project_name}/views/welcome/index.html.erb")
       end
 
       def add_public
-        copy_file('winter_fox_large.jpg', "#{project_name}/public")
+        copy_file('winter_fox_large.jpg', "#{project_name}/public/winter_fox_large.jpg")
       end
 
       def create_sql_file
