@@ -4,6 +4,7 @@ module RailzLite
   module Generators
     class Project < Thor::Group
       include Thor::Actions
+      argument :project_name, type: :string
       
       def self.source_root
         File.dirname(__FILE__) + "/templates"
@@ -15,23 +16,23 @@ module RailzLite
       end
       
       def add_controllers
-        empty_directory("controllers")
+        empty_directory("#{project_name}/controllers")
       end
 
       def add_models
-        empty_directory("models")
+        empty_directory("#{project_name}/models")
       end
 
       def add_server
-        template("server.rb", "config/server.rb")
+        template("#{project_name}/server.rb", "config/server.rb")
       end
 
       def add_views
-        empty_directory("views")
+        empty_directory("#{project_name}/views")
       end
 
       def add_public
-        empty_directory("public")
+        empty_directory("#{project_name}/public")
       end
     end
   end

@@ -6,12 +6,17 @@ module RailzLite
   class CLI < Thor
     desc 'new', 'Generates a new RailzLite project'
     def new
-      RailzLite::Generators::Project.start([])
+      RailzLite::Generators::Project.start([project_name])
     end
 
     desc 'server', 'Starts up a puma server within RailzLite project'
     def server
-      puts "hello world"
+      file =  File.join(Dir.pwd, 'config', 'server.rb')
+      if File.exist?(file)
+        system('ruby', file)
+      else
+        raise "File not found at #{file}"
+      end
     end
   end
 end
