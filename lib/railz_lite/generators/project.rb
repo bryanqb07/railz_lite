@@ -11,7 +11,6 @@ module RailzLite
       end
 
       def self.destination_root
-        puts "destination for folder #{Dir.pwd}"
         Dir.pwd
       end
       
