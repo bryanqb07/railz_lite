@@ -2,10 +2,17 @@ require 'rack'
 require 'railz_lite/controllers/static'
 require 'railz_lite/controllers/show_exceptions'
 require 'railz_lite/controllers/router'
+require 'railz_lite'
+
+# example controller config
+ class WelcomeController < RailzLite::ControllerBase
+   def index; end
+ end
 
 router = Router.new
 router.draw do
   # add routes here
+  get Regexp.new('^/$'), WelcomeController, :index
 end
 
 app = Proc.new do |env|

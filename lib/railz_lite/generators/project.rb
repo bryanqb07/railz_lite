@@ -26,12 +26,16 @@ module RailzLite
         template('server.rb', "#{project_name}/config/server.rb")
       end
 
-      def add_views
-        empty_directory("#{project_name}/views")
+      def add_welcome_view
+        template('welcome_view.index.html.erb', "#{project_name}/views/welcome_controller/welcome_view.index.html.erb")
       end
 
       def add_public
-        empty_directory("#{project_name}/public")
+        copy_file('winter_fox_large.jpg', "#{project_name}/public")
+      end
+
+      def create_sql_file
+        create_file("#{project_name}/db/app.sql")
       end
     end
   end

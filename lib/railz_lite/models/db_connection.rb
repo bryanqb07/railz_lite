@@ -1,11 +1,15 @@
 require 'sqlite3'
 
-PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-ROOT_FOLDER = Dir.pwd
-SQL_FILE = File.join(ROOT_FOLDER, 'app.sql')
-DB_FILE = File.join(ROOT_FOLDER, 'app.db')
-
 class DBConnection
+  PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
+  ROOT_FOLDER = Dir.pwd
+  SQL_FILE = File.join(ROOT_FOLDER, 'db', 'app.sql')
+  DB_FILE = File.join(ROOT_FOLDER, 'db', 'app.db')
+
+  def self.start
+    DBConnection.open(DB_FILE)
+  end
+
   def self.open(db_file_name)
     @db = SQLite3::Database.new(db_file_name)
     @db.results_as_hash = true
