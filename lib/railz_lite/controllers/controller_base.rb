@@ -5,6 +5,9 @@ require_relative './session'
 require_relative './flash'
 
 module RailzLite
+  class LayoutRenderer # dummy class used to pass yield blocks into ERB method results https://hostiledeveloper.com/2015/05/28/working-with-templates-in-ruby-erb.html
+  end
+
   class ControllerBase
     attr_reader :req, :res, :params
 
@@ -46,10 +49,23 @@ module RailzLite
     # pass the rendered html to render_content
     def render(template_name)
       dir_path = Dir.pwd
-      file_path = File.join(dir_path, 'views', "#{self.class.name.underscore.split('_controller').first}", "#{template_name.to_s}.html.erb")
-      file = File.read(file_path)
-      template = ERB.new(file).result(binding)
-      render_content(template, 'text/html')
+
+      layout_path = File.join(dir_path, 'views', 'application', 'application.html.erb')
+      inner_file_path = File.join(dir_path, 'views', "#{self.class.name.underscore.split('_controller').first}", "#{template_name.to_s}.html.erb")
+
+      layout_template = File.read(layout_path)
+      inner_template = File.read(inner_file_path)
+
+      layout = ERB.new(layout_template)
+      inner = ERB.new(inner_template)
+
+      layout.def_method(LayoutRenderer, 'render') # dummy method used so that blocks can be passed to ERB result
+
+      result = LayoutRenderer.new.render do
+        inner.result(binding)
+      end
+
+      render_content(result, 'text/html')
     end
 
     # method exposing a `Session` object

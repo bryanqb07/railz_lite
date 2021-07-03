@@ -26,8 +26,10 @@ module RailzLite
         template('server.rb', "#{project_name}/config/server.rb")
       end
 
-      def add_welcome_view
+      def setup_views
         template('welcome_view.index.html.erb', "#{project_name}/views/welcome/index.html.erb")
+        template('application.html.erb', "#{project_name}/views/application/application.html.erb")
+        create_file("#{project_name}/views/application/application.css")
       end
 
       def add_public
