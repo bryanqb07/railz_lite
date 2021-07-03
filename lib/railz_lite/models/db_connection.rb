@@ -7,7 +7,6 @@ class DBConnection
   DB_FILE = File.join(ROOT_FOLDER, 'db', 'app.db')
 
   def self.start
-    `sqlite3 #{DB_FILE}`
     DBConnection.open(DB_FILE)
   end
 
