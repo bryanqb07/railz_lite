@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
+require 'sanitize'
 require_relative './session'
 require_relative './flash'
 
@@ -62,7 +63,8 @@ module RailzLite
       layout.def_method(LayoutRenderer, 'render') # dummy method used so that blocks can be passed to ERB result
 
       result = LayoutRenderer.new.render do
-        inner.result(binding)
+        inner_html = inner.result(binding)
+        Sanitize.fragment(inner_html, Sanitize::Config::RELAXED) # prevent non-safe html from being executed
       end
 
       render_content(result, 'text/html')

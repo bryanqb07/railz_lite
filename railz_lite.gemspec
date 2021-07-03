@@ -29,11 +29,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
-  spec.add_dependency "rack"
-  spec.add_dependency "activesupport"
-  spec.add_dependency "puma"
-  spec.add_dependency "sqlite3"
-  spec.add_dependency "thor"
+  spec.add_dependency "rack", '~> 2.2.3'
+  spec.add_dependency "activesupport", '~> 6.1.4'
+  spec.add_dependency "puma", '~> 5.3.2'
+  spec.add_dependency "sqlite3", '~> 1.4.2'
+  spec.add_dependency "thor", '~> 1.1.0'
+  spec.add_dependency "sanitize", '~> 5.2.3'
 
 
   spec.add_development_dependency "byebug"
