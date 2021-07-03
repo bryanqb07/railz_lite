@@ -1,7 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
-require 'sanitize'
+require 'loofah'
 require_relative './session'
 require_relative './flash'
 
@@ -64,7 +64,7 @@ module RailzLite
 
       result = LayoutRenderer.new.render do
         inner_html = inner.result(binding)
-        Sanitize.fragment(inner_html, Sanitize::Config::RELAXED) # prevent non-safe html from being executed
+        Loofah.fragment(inner_html).scrub!(:prune).to_s # prevent non-safe html from being executed
       end
 
       render_content(result, 'text/html')

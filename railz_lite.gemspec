@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "puma", '~> 5.3.2'
   spec.add_dependency "sqlite3", '~> 1.4.2'
   spec.add_dependency "thor", '~> 1.1.0'
-  spec.add_dependency "sanitize", '~> 5.2.3'
+  spec.add_dependency "loofah", '~> 2.10.0'
 
 
   spec.add_development_dependency "byebug"
