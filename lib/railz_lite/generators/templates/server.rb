@@ -24,7 +24,7 @@ end
 
 app = Rack::Builder.new do
   use ShowExceptions # generates helpful error messages
-  use Static # serves static assets from /public
+  use Static # serves static assets from /public and /assets
   run app
 end.to_app
 
