@@ -14,7 +14,6 @@ module RailzLite
     def server
       file =  File.join(Dir.pwd, 'config', 'server.rb')
       if File.exist?(file)
-        DBConnection.start # load our db connection
         system('ruby', file)
       else
         raise "File not found at #{file}"
