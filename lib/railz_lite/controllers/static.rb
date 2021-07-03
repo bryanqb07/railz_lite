@@ -1,11 +1,11 @@
 require 'rack'
 
 class Static
-  attr_reader :app, :file_server, :root
+  attr_reader :app, :file_server, :root_paths
 
   def initialize(app)
     @app = app
-    @root = 'public'
+    @root_paths = ['public', 'assets']
     @file_server = FileServer.new
   end
 
@@ -23,7 +23,7 @@ class Static
   private
 
   def can_match?(path)
-    path.index("/#{root}")
+    root_paths.any? { |root| path.index("/#{root}") }
   end
 end
 
@@ -32,7 +32,9 @@ class FileServer
   MIME_TYPES = {
     '.txt' => 'text/plain',
     '.jpg' => 'image/jpeg',
-    '.zip' => 'application/zip'
+    '.zip' => 'application/zip',
+    '.css' => 'text/css',
+    '.js' => 'text/javascript'
   }
 
   def call(env)
