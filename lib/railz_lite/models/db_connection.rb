@@ -1,5 +1,5 @@
 require_relative 'wrappers/pg_wrapper'
-require_relative 'wrappers/sqlite3_wrapper'
+require_relative 'wrappers/sqlite3_wrapper' unless ENV['DATABASE_URL']
 
 class DBConnection
   PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
