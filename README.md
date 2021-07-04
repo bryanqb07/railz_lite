@@ -38,7 +38,12 @@ To reset the db and/or add tables to the database, add your sql code to db/app.s
 $ railz_lite reset_db
 ```
 
-An example web app can be found at the following repo:
+An example web app published with this framework can be found below:
+
+https://trashfilms.herokuapp.com/films
+
+
+Along with the repo:
 
 https://github.com/bryanqb07/trash_films
 
