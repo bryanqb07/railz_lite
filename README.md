@@ -1,6 +1,6 @@
 # RailzLite
 
-A lite-weight Ruby gem inspired by Ruby on Rails.  
+A lite-weight Ruby web app development framework inspired by Ruby on Rails.  
 
 To get started with a new project, execute the command
 
@@ -16,8 +16,24 @@ After changing into the root project directory, run the server command to get th
 $ cd MyWebApp && railz_lite server
 ```
 
-To create a new sqlite3 database file, write your desired SQL code in app.sql then execute
+For databases, the framework offers two options. The default is a PostGresSQL instance that reads in a database uri string from the enviroment.
 
+To use, simply export a DATABASE_URL env variable and start the server:
+
+```
+$ export DATABASE_URL=your_url_here && bundle exec railz_lite server
+```
+
+The second option is an SQLite3 db instance. To use, you must first add the sqlite3 gem to your gemfile.
+
+```
+$ gem install sqlite3 
+```
+
+After, write your desired SQL code in db/app.sql then start the server.
+
+
+To reset the db and/or add tables to the database, add your sql code to db/app.sql then run the command:
 ```
 $ railz_lite reset_db
 ```
