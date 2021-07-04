@@ -13,7 +13,7 @@ module RailzLite
       SELECT
         *
       FROM
-        #{table_name}
+        #{table_name};
     SQL
       @columns.first.map(&:to_sym)
     end
@@ -42,7 +42,7 @@ module RailzLite
       SELECT
         *
       FROM
-        #{table_name}
+        #{table_name};
     SQL
       parse_all(results)
     end
@@ -58,7 +58,7 @@ module RailzLite
       FROM
         #{table_name}
       WHERE
-        ID = ?
+        ID = ?;
     SQL
 
       return nil if target.empty?
@@ -86,7 +86,7 @@ module RailzLite
       INSERT INTO
         #{self.class.table_name}(#{self.class.columns.join(',')})
       VALUES
-        (#{(["?"] * attribute_values.length).join(',')})
+        (#{(["?"] * attribute_values.length).join(',')});
     SQL
       self.id = last_row_id
     end
@@ -98,7 +98,7 @@ module RailzLite
       SET
         #{self.class.columns.map { |attr_name| "#{attr_name}=?"}.join(',')}
       WHERE
-        id = ?
+        id = ?;
     SQL
     end
 
