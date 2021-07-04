@@ -21,7 +21,7 @@ class PGWrapper
   def insert(sql, *args)
     sql.insert(sql.index(';'), ' RETURNING ID')
     converted_sql = convert_escaped_question_marks(sql)
-    result = @db.exec_params(converted_sql, *args)
+    result = @db.exec_params(converted_sql, args)
     result.to_a.first['id']
   end
 
