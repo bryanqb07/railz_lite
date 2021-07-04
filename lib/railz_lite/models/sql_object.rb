@@ -82,13 +82,13 @@ module RailzLite
     end
 
     def insert
-      DBConnection.execute(<<-SQL, *attribute_values)
+      last_row_id = DBConnection.insert(<<-SQL, *attribute_values)
       INSERT INTO
         #{self.class.table_name}(#{self.class.columns.join(',')})
       VALUES
         (#{(["?"] * attribute_values.length).join(',')})
     SQL
-      self.id = DBConnection.last_insert_row_id
+      self.id = last_row_id
     end
 
     def update
