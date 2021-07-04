@@ -65,6 +65,11 @@ module RailzLite
       self.new(target.first)
     end
 
+    # for insert statements we don't want to include the id field
+    def self.columns_sans_id
+      self.columns.reject { |col| col == :id }
+    end
+
     def initialize(params = {})
       params.each do |attr_name, val|
         name_sym = attr_name.to_sym
@@ -81,22 +86,27 @@ module RailzLite
       self.class.columns.map { |attr| send(attr) }
     end
 
+    # see columns_sans_id
+    def attribute_values_sans_id
+      self.class.columns_sans_id.map { |attr| send(attr) }
+    end
+
     def insert
-      last_row_id = DBConnection.insert(<<-SQL, *attribute_values)
+      last_row_id = DBConnection.insert(<<-SQL, *attribute_values_sans_id)
       INSERT INTO
-        #{self.class.table_name}(#{self.class.columns.join(',')})
+        #{self.class.table_name}(#{self.class.columns_sans_id.join(',')})
       VALUES
-        (#{(["?"] * attribute_values.length).join(',')});
+        (#{(["?"] * attribute_values_sans_id.length).join(',')});
     SQL
       self.id = last_row_id
     end
 
     def update
-      DBConnection.execute(<<-SQL, *attribute_values, self.id)
+      DBConnection.execute(<<-SQL, *attribute_values_sans_id, self.id)
       UPDATE
         #{self.class.table_name}
       SET
-        #{self.class.columns.map { |attr_name| "#{attr_name}=?"}.join(',')}
+        #{self.class.columns_sans_id.map { |attr_name| "#{attr_name}=?"}.join(',')}
       WHERE
         id = ?;
     SQL
