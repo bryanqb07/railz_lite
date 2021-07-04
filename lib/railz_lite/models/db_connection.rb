@@ -12,23 +12,26 @@ class DBConnection
   end
 
   def self.open(db_name) # for sqlite3 we need file.db, for postgresql we need database name
+    db_uri = ENV['DATABASE_URL']
 
-    @db = ENV['DB_TYPE'] == 'PG' ?  PGWrapper.new(db_name) : SQLite3Wrapper.new(db_name)
+    @db = db_uri.nil? ?  SQLite3Wrapper.new(db_name) : PGWrapper.new(db_uri) 
 
     @db
   end
 
   def self.reset
-    commands =
-      { sqlite3: [
-          "rm '#{DB_FILE}'",
-          "cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'"
-        ],
-        pgsql: []
-      }
+    db_uri = ENV['DATABASE_URL']
 
-    commands.each { |command| `#{command}` }
-    DBConnection.open(DB_FILE)
+    if db_uri.nil? # sqlite
+      commands = ["rm '#{DB_FILE}'", "cat '#{SQL_FILE}' | sqlite3 '#{DB_FILE}'"]
+
+      commands.each { |command| `#{command}` }
+      DBConnection.open(DB_FILE)
+    else # postgres
+      DBConnection.open(db_uri)
+      sql = File.read(SQL_FILE)
+      instance.execute(sql)
+    end
   end
 
   def self.instance

@@ -1,8 +1,8 @@
 require 'pg'
 
 class PGWrapper
-  def initialize(db_name)
-    @db = PG::Connection.connect(dbname: db_name)
+  def initialize(db_uri)
+    @db = PG::Connection.new(db_uri)
     @db.type_map_for_results = PG::BasicTypeMapForResults.new(@db) # converts pgsql strings to ruby type
     @db
   end
